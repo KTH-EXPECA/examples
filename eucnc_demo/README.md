@@ -34,6 +34,12 @@ mkdir /EDAF/
 docker exec influxdb influx auth list --json > /EDAF/influx_auth.json
 ```
 
+To clean up influxDB:
+```
+docker rm influxdb -f
+docker volume rm influxdb-storage
+```
+
 # Bring up 5G core network
 
 ```
