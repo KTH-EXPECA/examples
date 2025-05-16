@@ -47,9 +47,9 @@ Check IP address of gnb machine. Here it is `192.168.70.129` and we run EDAF ser
 # Run EDAF server
 
 
-# Run NLMT on GNB machine
+# Run NLMT server
 
-We run it in a screen session:
+We run it in a screen session in GNB machine:
 ```
 wget https://raw.githubusercontent.com/samiemostafavi/nlmt/master/nlmt
 chmod +x nlmt
