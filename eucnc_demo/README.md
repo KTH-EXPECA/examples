@@ -47,13 +47,14 @@ Check IP address of gnb machine. Here it is `192.168.70.129` and we run EDAF ser
 # Run EDAF server
 
 
-# Run NLMT in ext-dn
+# Run NLMT on GNB machine
 
+We run it in a screen session:
 ```
 wget https://raw.githubusercontent.com/samiemostafavi/nlmt/master/nlmt
-docker cp nlmt oai-ext-dn:/usr/local/bin/
-docker exec -it oai-ext-dn chmod +x /usr/local/bin/nlmt
-docker exec -d oai-ext-dn /bin/sh -c 'while true; do nlmt server -n 192.168.70.129:50009 -i 0 -d 0 -l 0; sleep 1; done'
+chmod +x nlmt
+screen -S nlmt
+/bin/sh -c 'while true; do ./nlmt server -n 0.0.0.0:50009 -i 0 -d 0 -l 0; sleep 1; done'
 ```
 Check the NLMT connects to EDAF server in the logs.
 
