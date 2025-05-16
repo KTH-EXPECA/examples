@@ -58,7 +58,7 @@ screen -S nlmt
 ```
 Check the NLMT connects to EDAF server in the logs.
 
-# Run gnb
+# Run gnb (SDR-07)
 
 Modify gnb config for band 41:
 ```
@@ -69,7 +69,7 @@ Modify the SDR address, and add the following in the same level as `Active_gNBs`
 edaf_addr = "0.0.0.0:50015";
 ```
 
-Run gnb (SDR-07):
+Execute gnb:
 ```
 cd ~/openairinterface5g-edaf/cmake_targets/ran_build/build
 ./nr-softmodem -O ../../../targets/PROJECTS/GENERIC-NR-5GC/CONF/gnb.sa.band41.fr1.106PRB.usrpb210.conf --sa -E --gNBs.[0].min_rxtxtime 6 --MACRLCs.[0].dl_max_mcs 20 --MACRLCs.[0].ul_max_mcs 20
@@ -79,8 +79,21 @@ Check that gNB connects to EDAF server in the logs.
 
 # Run ue (SDR-05)
 
+Prepare NLMT client
+```
+wget https://raw.githubusercontent.com/samiemostafavi/nlmt/master/nlmt
+chmod +x nlmt
+```
+
+Execute nrUE:
 ```
 ./nr-uesoftmodem --band 41 -C 2593350000 -r 106 --numerology 1 --ssb 516 --sa -E --uicc0.imsi 001010000000001 --uicc0.dnn oai --uicc0.nssai_sst 1 --uicc0.nssai_sd 16777215  --uicc0.opc c42449363bbad02b66d16bc975d77cc1  --uicc0.key fec86ba6eb707ed08905757b1bb44b8f --usrp-args "mgmt_addr=10.30.10.10,addr=10.30.10.10" --ue-fo-compensation --ue-rxgain 120 --ue-txgain 0 --ue-max-power 0 --edaf-addr 130.237.11.115:50011
 ```
-Check that UE connects to EDAF server in the logs
+Check that UE connects to EDAF server in the logs.
+
+If UE connect and gets an IP, run the following:
+```
+ip route add 192.168.70.128/26 via 10.0.0.1
+./nlmt client --tripm=oneway -i 10ms -f 5ms -g edaf1/test -l 500 -m 1 -d 5m -o d --outdir=/tmp/ 192.168.70.129
+```
 
