@@ -58,9 +58,9 @@ Check the NLMT connects to EDAF server in the logs.
 
 # Run gnb
 
-Modify gnb config for band 48:
+Modify gnb config for band 41:
 ```
-vim ~/openairinterface5g-edaf/targets/PROJECTS/GENERIC-NR-5GC/CONF/gnb.sa.band48.fr1.106PRB.usrpb210.conf
+vim ~/openairinterface5g-edaf/targets/PROJECTS/GENERIC-NR-5GC/CONF/gnb.sa.band41.fr1.106PRB.usrpb210.conf
 ```
 Modify the SDR address, and add the following in the same level as `Active_gNBs` and `Asn1_verbosity`:
 ```
@@ -70,7 +70,7 @@ edaf_addr = "0.0.0.0:50015";
 Run gnb:
 ```
 cd ~/openairinterface5g-edaf/cmake_targets/ran_build/build
-./nr-softmodem -O ../../../targets/PROJECTS/GENERIC-NR-5GC/CONF/gnb.sa.band48.fr1.106PRB.usrpb210.conf --sa --usrp-tx-thread-config 1 -E
+./nr-softmodem -O ../../../targets/PROJECTS/GENERIC-NR-5GC/CONF/gnb.sa.band41.fr1.106PRB.usrpb210.conf --sa --usrp-tx-thread-config 1 -E
 ```
 Check that gNB connects to EDAF server in the logs.
 
@@ -78,6 +78,7 @@ Check that gNB connects to EDAF server in the logs.
 # Run ue
 
 ```
-./nr-uesoftmodem -r 106 --numerology 1 --band 78 -C 3579600000 -r 106 --numerology 1 --ssb 396 -E --uicc0.imsi 001010000000001 --uicc0.nssai_sd 1 --usrp-args "mgmt_addr=10.30.10.8,addr=10.30.10.8" --ue-fo-compensation --ue-rxgain 120 --ue-txgain 0 --ue-max-power 0 --edaf-addr 130.237.11.115:50011
+./nr-uesoftmodem -C 2593350000 -r 106 --numerology 1 --ssb 516 --nokrnmod --sa -E --uicc0.imsi 001010000000001 --uicc0.nssai_sd 1 --usrp-args "mgmt_addr=10.30.10.8,addr=10.30.10.8" --ue-fo-compensation --ue-rxgain 120 --ue-txgain 0 --ue-max-power 0 --edaf-addr 130.237.11.115:50011
 ```
+Check that UE connects to EDAF server in the logs
 
