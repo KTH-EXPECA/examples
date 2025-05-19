@@ -38,6 +38,7 @@ To clean up influxDB:
 ```
 docker rm influxdb -f
 docker volume rm influxdb-storage
+rm /EDAF/influx_auth.json
 ```
 
 # Bring up 5G core network
