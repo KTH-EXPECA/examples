@@ -21,7 +21,7 @@ docker exec -it influxdb influx setup \
   --username edaf \
   --password 4c5f28e30698bf883e18193 \
   --org expeca \
-  --bucket latency \
+  --bucket edaf_raw \
   --retention 0 \
   --force
 ```
