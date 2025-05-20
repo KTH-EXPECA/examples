@@ -1,6 +1,6 @@
 # Start containers
 
-Use the sdr image that already includes compiled EDAF and OAI code:
+Use the sdr image that already includes compiled OAI EDAF and gnb config files:
 ```
 samiemostafavi/sshd-dind-oai
 ```
