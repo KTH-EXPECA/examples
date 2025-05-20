@@ -6,7 +6,7 @@ samiemostafavi/sshd-dind-oai
 ```
 Run 2 of them one for gnb and one for UE.
 
-# Bring up a simple InfluxDB for develop
+# Bring up InfluxDB
 
 ```
 docker run -d \
