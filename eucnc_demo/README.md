@@ -118,6 +118,27 @@ Modify the SDR address, and add the following in the same level as `Active_gNBs`
 edaf_addr = "0.0.0.0:50015";
 ```
 
+The gain configurations should be:
+```
+RUs = (
+{
+  local_rf       = "yes"
+  nb_tx          = 1
+  nb_rx          = 1
+  att_tx         = -15;
+  att_rx         = -10;
+  bands          = [41];
+  max_pdschReferenceSignalPower = -27;
+  max_rxgain                    = 118;
+  eNB_instances  = [0];
+  #beamforming 1x4 matrix:
+  bf_weights = [0x00007fff, 0x0000, 0x0000, 0x0000];
+  clock_src = "internal";
+  #sl_ahead = 2;
+  sdr_addrs="mgmt_addr=10.30.10.14,addr=10.30.10.14";
+}
+```
+
 Execute gnb:
 ```
 cd ~/openairinterface5g-edaf/cmake_targets/ran_build/build
