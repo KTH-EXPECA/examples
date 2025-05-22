@@ -1,12 +1,12 @@
 # Start containers
 
-Use the sdr image that already includes compiled EDAF and OAI code:
+Use the sdr image that already includes compiled OAI EDAF and gnb config files:
 ```
 samiemostafavi/sshd-dind-oai
 ```
 Run 2 of them one for gnb and one for UE.
 
-# Bring up a simple InfluxDB for develop
+# Bring up InfluxDB
 
 ```
 docker run -d \
@@ -53,6 +53,48 @@ Check IP address of gnb machine. Here it is `192.168.70.129` and we run EDAF ser
 
 # Run EDAF server
 
+Make sure you have Python 3.9 installed on the server.
+
+Clone EDAF repo and checkout to develop
+```
+git clone https://github.com/samiemostafavi/edaf.git
+cd edaf
+git checkout develop
+```
+
+Install dependencies
+```
+pip install -Ur requirements.txt
+```
+
+Fix the configurations in `edaf/api/server.py` file:
+```
+MAX_L1_UPF_DEPTH = 40 # lines in one page
+QPROC_SLEEP_UPF_S = 0.5 # how often read one page and process it
+
+MAX_L1_GNB_DEPTH = 5000 # lines in one page
+QPROC_SLEEP_GNB_S = 0.5 # how often read one page and process it
+
+MAX_L1_UE_DEPTH = 2500 # lines in one page
+QPROC_SLEEP_UE_S = 0.5 # how often read one page and process it
+
+LOGGING_PERIOD_SEC = 2
+
+PACKETS_DECOMPOSE_WINDOW_MS = 2000 # history window duration in seconds
+PACKETS_DECOMPOSE_SLEEP_S = 0.1 # while loop sleep duration in seconds
+
+org = "expeca"
+raw_bucket = "edaf_raw"
+main_bucket = "edaf_main"
+influx_db_address = "http://0.0.0.0:8086"
+auth_info_addr = "/EDAF/influx_auth.json"
+```
+
+
+Run edaf:
+```
+python edaf.py
+```
 
 # Run NLMT server
 
@@ -74,6 +116,27 @@ vim ~/openairinterface5g-edaf/targets/PROJECTS/GENERIC-NR-5GC/CONF/gnb.sa.band41
 Modify the SDR address, and add the following in the same level as `Active_gNBs` and `Asn1_verbosity`:
 ```
 edaf_addr = "0.0.0.0:50015";
+```
+
+The gain configurations should be:
+```
+RUs = (
+{
+  local_rf       = "yes"
+  nb_tx          = 1
+  nb_rx          = 1
+  att_tx         = -15;
+  att_rx         = -10;
+  bands          = [41];
+  max_pdschReferenceSignalPower = -27;
+  max_rxgain                    = 118;
+  eNB_instances  = [0];
+  #beamforming 1x4 matrix:
+  bf_weights = [0x00007fff, 0x0000, 0x0000, 0x0000];
+  clock_src = "internal";
+  #sl_ahead = 2;
+  sdr_addrs="mgmt_addr=10.30.10.14,addr=10.30.10.14";
+}
 ```
 
 Execute gnb:
