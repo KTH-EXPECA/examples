@@ -30,6 +30,7 @@ and in order to fetch only v2.1.0 (which is the latest version we support at ExP
 cd ~/oai-cn5g
 curl -o ~/oai-cn5g/docker-compose.yaml https://raw.githubusercontent.com/KTH-EXPECA/examples/main/openairinterface/docker-compose.yaml
 ```
+Then pull the images
 ```
 cd ~/oai-cn5g
 docker compose pull
