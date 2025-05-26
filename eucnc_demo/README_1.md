@@ -171,6 +171,7 @@ Check that UE connects to EDAF server in the logs.
 If UE connect and gets an IP, run the following:
 ```
 ip route add 192.168.70.128/26 via 10.0.0.1
-./nlmt client --tripm=oneway -i 10ms -f 5ms -g edaf1/test -l 500 -m 1 -d 5m -o d --outdir=/tmp/ 192.168.70.129
+./nlmt client --tripm=oneway -i 50ms -g edaf1/test -l 100 -m 1 -d 5m -o d --outdir=/tmp/ 192.168.70.129
 ```
+With the configuration above (edaf buffer sizes etc), it is very important to have periodicity of 50ms and packet size of 100B.
 
