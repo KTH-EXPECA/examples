@@ -55,6 +55,13 @@ Check IP address of gnb machine. Here it is `192.168.70.129` and we run EDAF ser
 
 Make sure you have Python 3.9 installed on the server.
 
+Install libsqlite3 and pip:
+```
+apt-get update
+apt-get install libsqlite3-dev
+apt install python3-pip
+```
+
 Clone EDAF repo and checkout to develop
 ```
 git clone https://github.com/samiemostafavi/edaf.git
