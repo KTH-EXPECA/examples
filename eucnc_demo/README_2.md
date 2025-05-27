@@ -46,6 +46,7 @@ rm /EDAF/influx_auth.json
 ```
 cd ~/oai-cn5g
 curl -o ~/oai-cn5g/database/oai_db.sql https://raw.githubusercontent.com/KTH-EXPECA/examples/main/openairinterface/oai_db_nrue.sql
+curl -o ~/oai-cn5g/docker-compose.yaml https://raw.githubusercontent.com/KTH-EXPECA/examples/main/openairinterface/docker-compose.yaml
 docker compose pull
 docker compose up -d
 ```
