@@ -173,7 +173,7 @@ chmod +x nlmt
 
 Run NLMT client runner script
 ```
-wget https://raw.githubusercontent.com/samiemostafavi/edaf/refs/heads/develop/nlmt_client_retry.sh
+wget https://raw.githubusercontent.com/KTH-EXPECA/examples/refs/heads/main/eucnc_demo/nlmt_client_retry.sh
 chmod +x nlmt_client_retry.sh
 screen -S nlmt
 ./nlmt_client_retry.sh
