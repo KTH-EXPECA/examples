@@ -34,6 +34,11 @@ mkdir /EDAF/
 docker exec influxdb influx auth list --json > /EDAF/influx_auth.json
 ```
 
+To check the size of influxDB:
+```
+docker system df -v | grep "influxdb-storage"
+```
+
 To clean up influxDB:
 ```
 docker rm influxdb -f
