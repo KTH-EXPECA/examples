@@ -156,20 +156,33 @@ Check that gNB connects to EDAF server in the logs.
 
 # Run ue (SDR-05)
 
+Execute nrUE:
+```
+cd ~/openairinterface5g-edaf/cmake_targets/ran_build/build
+./nr-uesoftmodem --band 41 -C 2593350000 -r 106 --numerology 1 --ssb 516 --sa -E --uicc0.imsi 001010000000001 --uicc0.dnn oai --uicc0.nssai_sst 1 --uicc0.nssai_sd 16777215  --uicc0.opc c42449363bbad02b66d16bc975d77cc1  --uicc0.key fec86ba6eb707ed08905757b1bb44b8f --usrp-args "mgmt_addr=10.30.10.10,addr=10.30.10.10" --ue-fo-compensation --ue-rxgain 120 --ue-txgain 22 --ue-max-power 0 --edaf-addr 130.237.11.115:50011
+```
+Check that UE connects to EDAF server in the logs.
+
+NOTE: here we use `-ue-txgain 22` which means the attenuation will be 22 dbs on the tx of the UE. This will give us an MCS index in the range of 13 to 15.
+
+
+# Run NLMT client 
+
 Prepare NLMT client
 ```
 wget https://raw.githubusercontent.com/samiemostafavi/nlmt/master/nlmt
 chmod +x nlmt
 ```
 
-Execute nrUE:
+Run NLMT client runner script
 ```
-cd ~/openairinterface5g-edaf/cmake_targets/ran_build/build
-./nr-uesoftmodem --band 41 -C 2593350000 -r 106 --numerology 1 --ssb 516 --sa -E --uicc0.imsi 001010000000001 --uicc0.dnn oai --uicc0.nssai_sst 1 --uicc0.nssai_sd 16777215  --uicc0.opc c42449363bbad02b66d16bc975d77cc1  --uicc0.key fec86ba6eb707ed08905757b1bb44b8f --usrp-args "mgmt_addr=10.30.10.10,addr=10.30.10.10" --ue-fo-compensation --ue-rxgain 115 --ue-txgain 0 --ue-max-power 0 --edaf-addr 130.237.11.115:50011
+wget https://raw.githubusercontent.com/samiemostafavi/edaf/refs/heads/develop/nlmt_client_retry.sh
+chmod +x nlmt_client_retry.sh
+screen -S nlmt
+./nlmt_client_retry.sh
 ```
-Check that UE connects to EDAF server in the logs.
 
-If UE connect and gets an IP, run the following:
+Alternative: If UE connects and gets an IP, instead of the NLMT client runner, you can run the following:
 ```
 ip route add 192.168.70.128/26 via 10.0.0.1
 ./nlmt client --tripm=oneway -i 50ms -g edaf1/test -l 100 -m 1 -d 5m -o d --outdir=/tmp/ 192.168.70.129
