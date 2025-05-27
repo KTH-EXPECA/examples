@@ -164,6 +164,7 @@ Check that gNB connects to EDAF server in the logs.
 
 Run nrUE via the script:
 ```
+apt-get install -y iputils-ping
 wget https://raw.githubusercontent.com/KTH-EXPECA/examples/refs/heads/main/eucnc_demo/nrue_retry.sh
 chmod +x nrue_retry.sh
 screen -S nrue
