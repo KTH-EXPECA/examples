@@ -46,6 +46,7 @@ rm /EDAF/influx_auth.json
 ```
 cd ~/oai-cn5g
 curl -o ~/oai-cn5g/database/oai_db.sql https://raw.githubusercontent.com/KTH-EXPECA/examples/main/openairinterface/oai_db_nrue.sql
+curl -o ~/oai-cn5g/docker-compose.yaml https://raw.githubusercontent.com/KTH-EXPECA/examples/main/openairinterface/docker-compose.yaml
 docker compose pull
 docker compose up -d
 ```
@@ -54,6 +55,13 @@ Check IP address of gnb machine. Here it is `192.168.70.129` and we run EDAF ser
 # Run EDAF server
 
 Make sure you have Python 3.9 installed on the server.
+
+Install libsqlite3 and pip:
+```
+apt-get update
+apt-get install libsqlite3-dev
+apt install python3-pip
+```
 
 Clone EDAF repo and checkout to develop
 ```
@@ -149,21 +157,33 @@ Check that gNB connects to EDAF server in the logs.
 
 # Run ue (SDR-05)
 
-Prepare NLMT client
-```
-wget https://raw.githubusercontent.com/samiemostafavi/nlmt/master/nlmt
-chmod +x nlmt
-```
-
 Execute nrUE:
 ```
 ./nr-uesoftmodem --band 41 -C 2593350000 -r 106 --numerology 1 --ssb 516 --sa -E --uicc0.imsi 001010000000001 --uicc0.dnn oai --uicc0.nssai_sst 1 --uicc0.nssai_sd 16777215  --uicc0.opc c42449363bbad02b66d16bc975d77cc1  --uicc0.key fec86ba6eb707ed08905757b1bb44b8f --usrp-args "mgmt_addr=10.30.10.10,addr=10.30.10.10" --ue-fo-compensation --ue-rxgain 120 --ue-txgain 0 --ue-max-power 0 --edaf-addr 130.237.11.115:50011
 ```
 Check that UE connects to EDAF server in the logs.
 
-If UE connect and gets an IP, run the following:
+
+# Run NLMT client 
+
+Prepare NLMT client
+```
+wget https://raw.githubusercontent.com/samiemostafavi/nlmt/master/nlmt
+chmod +x nlmt
+```
+
+Run NLMT client runner script
+```
+wget https://raw.githubusercontent.com/KTH-EXPECA/examples/refs/heads/main/eucnc_demo/nlmt_client_retry.sh
+chmod +x nlmt_client_retry.sh
+screen -S nlmt
+./nlmt_client_retry.sh
+```
+
+Alternative: If UE connects and gets an IP, instead of the NLMT client runner, you can run the following:
 ```
 ip route add 192.168.70.128/26 via 10.0.0.1
-./nlmt client --tripm=oneway -i 10ms -f 5ms -g edaf1/test -l 500 -m 1 -d 5m -o d --outdir=/tmp/ 192.168.70.129
+./nlmt client --tripm=oneway -i 50ms -g edaf1/test -l 100 -m 1 -d 5m -o d --outdir=/tmp/ 192.168.70.129
 ```
+With the configuration above (edaf buffer sizes etc), it is very important to have periodicity of 50ms and packet size of 100B.
 
