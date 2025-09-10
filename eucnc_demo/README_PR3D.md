@@ -68,6 +68,11 @@ In order to check if they work, in influxDB you can check the pr3d bucket. For e
 
 ## Start Grafana
 
+Start a Grafana session
+```
+screen -S grafana
+```
+
 Create a folder and a docker volume to store data
 ```
 mkdir -p grafana/provisioning/datasources
