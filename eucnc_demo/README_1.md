@@ -117,6 +117,11 @@ Check the NLMT connects to EDAF server in the logs.
 
 # Run gnb (SDR-07)
 
+Make sure you install ping:
+```
+apt-get install -y iputils-ping
+```
+
 Modify gnb config for band 41:
 ```
 vim ~/openairinterface5g-edaf/targets/PROJECTS/GENERIC-NR-5GC/CONF/gnb.sa.band41.fr1.106PRB.usrpb210.conf
@@ -156,6 +161,11 @@ Check that gNB connects to EDAF server in the logs.
 
 
 # Run ue (SDR-05)
+
+Make sure you install ping:
+```
+apt-get install -y iputils-ping
+```
 
 Execute nrUE:
 ```
