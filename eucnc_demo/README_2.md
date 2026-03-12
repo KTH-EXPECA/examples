@@ -162,6 +162,11 @@ Check that gNB connects to EDAF server in the logs.
 
 # Run ue (SDR-05)
 
+Make sure you install ping:
+```
+apt-get install -y iputils-ping
+```
+
 Run nrUE via the script:
 ```
 apt-get install -y iputils-ping

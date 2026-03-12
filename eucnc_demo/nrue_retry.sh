@@ -2,7 +2,7 @@
 
 # Config
 LOG_DIR="/tmp"
-CHECK_IP="192.168.70.129"
+CHECK_IP="10.0.0.1"
 INTERFACE="oaitun_ue1"
 
 # Cleanup on Ctrl-C
