@@ -50,6 +50,7 @@ docker logs oai-amf
 To test the SDR data transfer, you can use iperf3 command. 
 From the GNodeB:
 ```
+pkill -x iperf3 || true
 iperf3 -s
 ```
 
