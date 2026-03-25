@@ -61,9 +61,9 @@ ping 192.168.70.129
 
 From the Advantech router end node container (129.168.70.129 is the core network gateway address):
 ```
-iperf3 -c 192.168.70.129 -u -b 10M -l 1200 -t 20 --get-server-output
+iperf3 -c 192.168.70.129 --get-server-output
 sleep 5
-iperf3 -c 192.168.70.129 -u -b 10M -l 1200 -t 20 -R --get-server-output
+iperf3 -c 192.168.70.129 -R --get-server-output
 
 ```
 
