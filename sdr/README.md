@@ -22,5 +22,10 @@ This notebook is used to setup 2 SDRs with one container each, and can be used f
 - Both containers have public IP connection
 - Both containers are prepared with OAI
 
-
+## `expeca_3sdr_gnb_2ue.ipynb`
+This notebooks sets up 2 SDRs with a container each to act as UEs and another SDR to act as Core-gNb.
+- 1 container per SDR, connected to the SFP interface
+- All containers have public IP connection
+- All containers are prepared with OAI
+- To be used for ROS-based containerized experimentation.
 
